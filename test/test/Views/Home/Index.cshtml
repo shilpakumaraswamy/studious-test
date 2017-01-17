@@ -2,10 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
-<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.6.2.min.js">
-</script>
-@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>*@
-<h2>Index</h2>
+@*<script  type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.6.2.min.js">
+</script>*@
+<script  type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-latest.js"></script>
+<script type="text/javascript"  src="~/Scripts/jquery.tablesorter.min.js"></script>
+
 
 <div class="modal fade" id="create">
     <div class="modal-dialog" role="document">
@@ -50,17 +52,23 @@
         </div>
     </div>
 </div>
+<br/>
 
+<div>
+    <button id="createexc" class="btn btn-primary">Create</button><br /><br />
+</div>
+<br/>
+<br/>
+<input type="text" id="search" placeholder="Type to search" class="form-control"><br/><br/>
 
-<button id="createexc" class="btn btn-primary">Create</button>
-<table>
-    <thead>
+<table id="table" width="1000" border="1" cellpadding="15">
+    
     <tr>
-        <td>Name</td>
-        <td>Date</td>
-        <td>Duration</td>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Duration</th>
     </tr>
-    </thead>
+    
     @foreach (var excercise in Model)
     {
         <tr>
@@ -75,26 +83,26 @@
    $(document).ready(function () {
     
     $('#createexc').click(function () {
-        alert("inside");
+        
         $("#create").modal('show');
 
     });
        $("#save").click(function() {
-           alert("hi");
+        
            var name = $('#name').val();
            var date = $('#date').val();
            var duration = $('#duration').val();
            var exc=
            {
                Id:0,
-               name : name,
-               date :date,
-               duration :duration
+               ExcerciseName : name,
+               ExcerciseDate :date,
+               DurationInMin :duration
            };
            console.log(exc);
            $.ajax({ 
                type: "POST",
-               url:"Add",
+               url:"/Home/Add",
                data: exc,
                success: function (msg) {
                    alert("Message is sent");
@@ -102,5 +110,35 @@
                
              });
        });
+
+
+       var $rows = $('#table tr');
+       $('#search').keyup(function () {
+           var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+           $rows.show().filter(function () {
+               var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+               return !~text.indexOf(val);
+           }).hide();
        });
+
+       //$("table").tablesorter({ widthFixed: true, widgets: ['zebra'] }).tablesorterPager({ container: $("#pager") });
+
+       
+   });
+
+   jQuery(document).ready(function ($) {
+       $("#table").tablesorter();
+   });
 </script>
+<style>
+    table {
+        font-size: 30px;
+        padding: 15px;
+        
+        border-spacing: 10px;
+
+    }
+    input 
+         {margin-bottom: 5px; padding: 2px 3px; width: 209px;}
+</style>

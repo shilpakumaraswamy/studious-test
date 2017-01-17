@@ -25,8 +25,7 @@ namespace test.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Add( Excercise exc)
+       public ActionResult Add( Excercise exc)
         {
             try
             {

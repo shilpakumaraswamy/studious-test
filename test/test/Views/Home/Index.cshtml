@@ -1,0 +1,106 @@
+﻿@model IEnumerable<test.Models.Excercise>
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.6.2.min.js">
+</script>
+@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>*@
+<h2>Index</h2>
+
+<div class="modal fade" id="create">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"  style="width: 50%;height: 50%">
+                <form>
+                   
+                        
+                            <label>Excercise Name:</label>
+                      
+                       
+                            <input type="text" id="name" class="form-control" style="display: inline" /><br />
+                       
+                   
+                   
+                        <label>Excercise date:</label>
+                   
+                    
+                        <input type="text" id="date" class="form-control" style="display: inline-block" /><br />
+                    
+                  
+                        <label>Duration:</label>
+                   
+                    
+                    <input type="text" id="duration" class="form-control" style="display: inline" /><br />
+                        
+
+                        @*<button type="submit" class="btn btn-success" id="add">Add</button>
+                <button type="button" class="btn btn-danger" id="cancel">Cancel</button>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="save">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button id="createexc" class="btn btn-primary">Create</button>
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Date</td>
+        <td>Duration</td>
+    </tr>
+    </thead>
+    @foreach (var excercise in Model)
+    {
+        <tr>
+            <td>@excercise.ExcerciseName</td>
+            <td>@excercise.ExcerciseDate</td>
+            <td>@excercise.DurationInMin</td>
+        </tr>
+    }
+    
+</table>
+<script>
+   $(document).ready(function () {
+    
+    $('#createexc').click(function () {
+        alert("inside");
+        $("#create").modal('show');
+
+    });
+       $("#save").click(function() {
+           alert("hi");
+           var name = $('#name').val();
+           var date = $('#date').val();
+           var duration = $('#duration').val();
+           var exc=
+           {
+               Id:0,
+               name : name,
+               date :date,
+               duration :duration
+           };
+           console.log(exc);
+           $.ajax({ 
+               type: "POST",
+               url:"Add",
+               data: exc,
+               success: function (msg) {
+                   alert("Message is sent");
+               }
+               
+             });
+       });
+       });
+</script>

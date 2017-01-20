@@ -13,12 +13,12 @@ namespace test.Controllers
 
         public ActionResult Index()
         {
-            var excercises = excercise.ExcerciseRep.Get();
+            var excercises = excercise.ExcerciseRep.Get(orderBy: q => q.OrderByDescending(d => d.ExcerciseDate));
             return View(excercises.ToList());
         }
         public ActionResult Create()
         {
-            PopulateDepartmentsDropDownList();
+            //PopulateDepartmentsDropDownList();
 
 
             return View();

@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace test.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Excercise
     {
         public int Id { get; set; }
+        
         public string ExcerciseName { get; set; }
+        
         public System.DateTime ExcerciseDate { get; set; }
+       
         public int DurationInMin { get; set; }
     }
 }

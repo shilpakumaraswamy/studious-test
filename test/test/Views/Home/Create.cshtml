@@ -1,0 +1,30 @@
+﻿@model test.Models.ExcerciseViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    <label>Excercise Name:<span style="color: red; font-size: medium">*</span></label>
+
+
+    @*<input type="text" id="name" class="form-control" style="display: inline" /><br />*@
+
+    @Html.TextBoxFor(model => model.ExcerciseName, new {@class = "form-control"})<br/>
+    @Html.ValidationMessageFor(model => model.ExcerciseName)
+    <label>Excercise date:<span style="color: red; font-size: medium">*</span></label>
+
+
+    @*<input type="text" id="date" class="form-control" style="display: inline-block" /><br />*@
+    @Html.TextBoxFor(model => model.ExcerciseDate, new {@class = "form-control"})<br/>
+
+    @Html.ValidationMessageFor(model => model.ExcerciseDate)
+    <label>Duration:<span style="color: red; font-size: medium">*</span></label>
+
+
+    @*<input type="text" id="duration" class="form-control" style="display: inline" /><br />*@
+    @Html.TextBoxFor(model => model.DurationInMin, new {@class = "form-control"})<br/>
+
+    @Html.ValidationMessageFor(model => model.DurationInMin)
+    @*<button type="submit" class="btn btn-success" id="add">Add</button>
+        <button type="button" class="btn btn-danger" id="cancel">Cancel</button>*@
+}
